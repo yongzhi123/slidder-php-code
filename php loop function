@@ -1,0 +1,71 @@
+<?php
+
+$connect = mysqli_connect("localhost", "root", "", "inaridb");
+function make_query($connect)
+{
+ $query = "SELECT * FROM inaridb.slider ORDER BY p_id ASC";
+ $result = mysqli_query($connect, $query);
+ return $result;
+}
+
+function make_slide_indicators($connect)
+{
+ $output = ''; 
+ $count = 0;
+ $result = make_query($connect);
+ 
+ foreach ($result as $row)
+ {
+  if($count == 0)
+  {
+   $output .= '
+   <li data-target="#" data-slide-to="'.$count.'" class="active"></li>
+   ';
+  }
+  else
+  {
+   $output .= '
+   <li data-target="#" data-slide-to="'.$count.'"></li>
+   ';
+  }
+  
+  echo $output;
+  
+  $count = $count++;
+ }
+ return $output;
+}
+
+function make_slides($connect)
+{
+ $output = '';
+ $count = 0;
+ $result = make_query($connect);
+ foreach ($result as $row) {
+ 
+  if($count == 0)
+  {
+   $output .= '<div class="swiper-slide platform">';
+  }
+  else
+  {
+   $output .= '<div class="swiper-slide platform">';
+  }
+  
+  {$output .='
+    <img src="'.$row["p_img"].'" alt="'.$row["p_name"].'" />
+   <div class="swiper-slide platform">
+    <h3>'.$row["p_desc"].'</h3>
+	</div>
+	
+  </div>
+  ';
+
+  }
+  
+  
+  $count = $count + 1;
+ }
+ return $output;
+
+}
