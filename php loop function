@@ -14,7 +14,7 @@ function make_slide_indicators($connect)
  $count = 0;
  $result = make_query($connect);
  
- foreach ($result as $row)
+ while($row = mysqli_fetch_assoc($result))
  {
   if($count == 0)
   {
@@ -41,8 +41,8 @@ function make_slides($connect)
  $output = '';
  $count = 0;
  $result = make_query($connect);
- foreach ($result as $row) {
- 
+ while($row = mysqli_fetch_assoc($result))
+ {
   if($count == 0)
   {
    $output .= '<div class="swiper-slide platform">';
@@ -69,3 +69,6 @@ function make_slides($connect)
  return $output;
 
 }
+
+
+?>
